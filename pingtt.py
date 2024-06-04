@@ -71,12 +71,22 @@ while game:
             game = False
 
     if finish != True:
+        
         window.blit(background, (0, 0))
         player_l.update_l()
         player_l.reset()
         player_r.update_r()
         player_r.reset()
         boll.reset()
+
+        boll.rect.x += speed_x
+        boll.rect.y += speed_y
+
+        if boll.rect.y > 470 or boll.rect.y < 0:
+            speed_y *= -1
+            
+        if sprite.collide_rect(player_l, boll) or sprite.collide_rect(player_r, boll):
+            speed_x *= -1
     clock.tick(FPS)
     display.update()
 
