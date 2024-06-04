@@ -2,6 +2,7 @@ from pygame import *
 from random import *
 from time import time as tm 
 
+
 #создай окно игры
 window = display.set_mode((700, 500))
 display.set_caption('PingPonk')
@@ -14,10 +15,11 @@ background = transform.scale(image.load('stol.png'),(700, 500))
 
 font.init()
 font1 = font.SysFont('Arial', 70)
-font2 = font.SysFont('Arial', 30)
+pl1 = input('Введите имя 1 игрок: ')
+pl2 = input('Введите имя 2 игрок: ')
 
-win = font1.render('YOU WIN!', True, (155, 215, 0))
-
+lose1 = font1.render(pl1+', проиграл', True, (155, 215, 0))
+lose2 = font1.render(pl2+', проиграл', True, (155, 215, 0))
 
 #mixer.music.play()
 
@@ -84,9 +86,17 @@ while game:
 
         if boll.rect.y > 470 or boll.rect.y < 0:
             speed_y *= -1
-            
+         
+
         if sprite.collide_rect(player_l, boll) or sprite.collide_rect(player_r, boll):
             speed_x *= -1
+
+        if boll.rect.x < 0:
+            finish = True
+            window.blit(lose1, (200,200))
+        if boll.rect.x > 700:
+            finish = True
+            window.blit(lose2, (200,200))
     clock.tick(FPS)
     display.update()
 
